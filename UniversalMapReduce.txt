@@ -1,0 +1,643 @@
+// =====================================================
+// UNIVERSAL HADOOP MAPREDUCE TEMPLATE
+// Use this single file for MOST BDA LAB EXAMS
+// Variations included using comments
+// =====================================================
+
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+public class UniversalMapReduce
+{
+
+    // =====================================================
+    // MAPPER
+    // =====================================================
+
+    public static class MyMapper
+            extends Mapper<LongWritable, Text, Text, IntWritable>
+    {
+
+        public void map(LongWritable key, Text value, Context context)
+                throws IOException, InterruptedException
+        {
+
+            String line = value.toString();
+
+            // =====================================================
+            // VARIATION 1 : WORD COUNT
+            // =====================================================
+
+            StringTokenizer st = new StringTokenizer(line);
+
+            while(st.hasMoreTokens())
+            {
+                String word = st.nextToken();
+
+                context.write(new Text(word), new IntWritable(1));
+            }
+
+
+            // =====================================================
+            // VARIATION 2 : LINE COUNT
+            // =====================================================
+
+            // context.write(new Text("lines"), new IntWritable(1));
+
+
+            // =====================================================
+            // VARIATION 3 : CHARACTER COUNT
+            // =====================================================
+
+            /*
+            char arr[] = line.toCharArray();
+
+            for(char ch : arr)
+            {
+                context.write(new Text(String.valueOf(ch)),
+                        new IntWritable(1));
+            }
+            */
+
+
+            // =====================================================
+            // VARIATION 4 : NUMBER FREQUENCY
+            // =====================================================
+
+            /*
+            String nums[] = line.split(" ");
+
+            for(String n : nums)
+            {
+                context.write(new Text(n),
+                        new IntWritable(1));
+            }
+            */
+
+
+            // =====================================================
+            // VARIATION 5 : EVEN NUMBER COUNT
+            // =====================================================
+
+            /*
+            String nums[] = line.split(" ");
+
+            for(String n : nums)
+            {
+                int num = Integer.parseInt(n);
+
+                if(num % 2 == 0)
+                {
+                    context.write(new Text("Even"),
+                            new IntWritable(1));
+                }
+            }
+            */
+
+
+            // =====================================================
+            // VARIATION 6 : ODD NUMBER COUNT
+            // =====================================================
+
+            /*
+            if(num % 2 != 0)
+            */
+
+
+            // =====================================================
+            // VARIATION 7 : POSITIVE NUMBER COUNT
+            // =====================================================
+
+            /*
+            if(num > 0)
+            {
+                context.write(new Text("Positive"),
+                        new IntWritable(1));
+            }
+            */
+
+
+            // =====================================================
+            // VARIATION 8 : NEGATIVE NUMBER COUNT
+            // =====================================================
+
+            /*
+            if(num < 0)
+            {
+                context.write(new Text("Negative"),
+                        new IntWritable(1));
+            }
+            */
+
+
+            // =====================================================
+            // VARIATION 9 : SUM OF NUMBERS
+            // =====================================================
+
+            /*
+            String nums[] = line.split(" ");
+
+            for(String n : nums)
+            {
+                int num = Integer.parseInt(n);
+
+                context.write(new Text("sum"),
+                        new IntWritable(num));
+            }
+            */
+
+
+            // =====================================================
+            // VARIATION 10 : MAXIMUM NUMBER
+            // =====================================================
+
+            /*
+            context.write(new Text("max"),
+                    new IntWritable(num));
+            */
+
+
+            // =====================================================
+            // VARIATION 11 : MINIMUM NUMBER
+            // =====================================================
+
+            /*
+            context.write(new Text("min"),
+                    new IntWritable(num));
+            */
+
+
+            // =====================================================
+            // VARIATION 12 : AVERAGE OF NUMBERS
+            // =====================================================
+
+            /*
+            context.write(new Text("avg"),
+                    new IntWritable(num));
+            */
+
+
+            // =====================================================
+            // VARIATION 13 : VOWEL COUNT
+            // =====================================================
+
+            /*
+            char arr[] = line.toLowerCase().toCharArray();
+
+            for(char ch : arr)
+            {
+                if(ch=='a' || ch=='e' || ch=='i'
+                        || ch=='o' || ch=='u')
+                {
+                    context.write(new Text("Vowel"),
+                            new IntWritable(1));
+                }
+            }
+            */
+
+
+            // =====================================================
+            // VARIATION 14 : CONSONANT COUNT
+            // =====================================================
+
+            /*
+            if(Character.isLetter(ch))
+            {
+                if(!(ch=='a'||ch=='e'||ch=='i'
+                        ||ch=='o'||ch=='u'))
+                {
+                    context.write(new Text("Consonant"),
+                            new IntWritable(1));
+                }
+            }
+            */
+
+
+            // =====================================================
+            // VARIATION 15 : REMOVE DUPLICATE WORDS
+            // =====================================================
+
+            /*
+            context.write(new Text(word),
+                    new IntWritable(1));
+            */
+
+
+            // =====================================================
+            // VARIATION 16 : EMPLOYEE SALARY MAX
+            // Input:
+            // Abbas,50000
+            // Ali,70000
+            // =====================================================
+
+            /*
+            String data[] = line.split(",");
+
+            String name = data[0];
+            int salary = Integer.parseInt(data[1]);
+
+            context.write(new Text("salary"),
+                    new IntWritable(salary));
+            */
+
+
+            // =====================================================
+            // VARIATION 17 : STUDENT MARKS AVERAGE
+            // =====================================================
+
+            /*
+            String data[] = line.split(",");
+
+            int marks = Integer.parseInt(data[1]);
+
+            context.write(new Text("marks"),
+                    new IntWritable(marks));
+            */
+
+
+            // =====================================================
+            // VARIATION 18 : TEMPERATURE ANALYSIS
+            // =====================================================
+
+            /*
+            int temp = Integer.parseInt(line);
+
+            context.write(new Text("temp"),
+                    new IntWritable(temp));
+            */
+
+
+            // =====================================================
+            // VARIATION 19 : SALES TOTAL
+            // =====================================================
+
+            /*
+            String data[] = line.split(",");
+
+            int sales = Integer.parseInt(data[1]);
+
+            context.write(new Text("sales"),
+                    new IntWritable(sales));
+            */
+
+
+            // =====================================================
+            // VARIATION 20 : SORTING NUMBERS
+            // Hadoop automatically sorts keys
+            // =====================================================
+
+            /*
+            int num = Integer.parseInt(line);
+
+            context.write(new Text(String.valueOf(num)),
+                    new IntWritable(1));
+            */
+
+        }
+    }
+
+
+    // =====================================================
+    // REDUCER
+    // =====================================================
+
+    public static class MyReducer
+            extends Reducer<Text, IntWritable,
+            Text, IntWritable>
+    {
+
+        public void reduce(Text key,
+                           Iterable<IntWritable> values,
+                           Context context)
+                throws IOException, InterruptedException
+        {
+
+            // =====================================================
+            // DEFAULT : SUM / WORD COUNT
+            // =====================================================
+
+            int sum = 0;
+
+            for(IntWritable val : values)
+            {
+                sum += val.get();
+            }
+
+            context.write(key, new IntWritable(sum));
+
+
+            // =====================================================
+            // VARIATION : MAXIMUM NUMBER
+            // =====================================================
+
+            /*
+            int max = Integer.MIN_VALUE;
+
+            for(IntWritable val : values)
+            {
+                max = Math.max(max, val.get());
+            }
+
+            context.write(key, new IntWritable(max));
+            */
+
+
+            // =====================================================
+            // VARIATION : MINIMUM NUMBER
+            // =====================================================
+
+            /*
+            int min = Integer.MAX_VALUE;
+
+            for(IntWritable val : values)
+            {
+                min = Math.min(min, val.get());
+            }
+
+            context.write(key, new IntWritable(min));
+            */
+
+
+            // =====================================================
+            // VARIATION : AVERAGE
+            // =====================================================
+
+            /*
+            int sum = 0;
+            int count = 0;
+
+            for(IntWritable val : values)
+            {
+                sum += val.get();
+                count++;
+            }
+
+            int avg = sum / count;
+
+            context.write(key, new IntWritable(avg));
+            */
+
+
+            // =====================================================
+            // VARIATION : REMOVE DUPLICATES
+            // =====================================================
+
+            /*
+            context.write(key, new IntWritable(1));
+            */
+
+        }
+    }
+
+
+    // =====================================================
+    // DRIVER CODE
+    // =====================================================
+
+    public static void main(String[] args) throws Exception
+    {
+
+        Configuration conf = new Configuration();
+
+        Job job = Job.getInstance(conf,
+                "Universal MapReduce");
+
+        job.setJarByClass(UniversalMapReduce.class);
+
+        job.setMapperClass(MyMapper.class);
+
+        job.setReducerClass(MyReducer.class);
+
+        job.setOutputKeyClass(Text.class);
+
+        job.setOutputValueClass(IntWritable.class);
+
+        FileInputFormat.addInputPath(job,
+                new Path(args[0]));
+
+        FileOutputFormat.setOutputPath(job,
+                new Path(args[1]));
+
+        System.exit(job.waitForCompletion(true)
+                ? 0 : 1);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// =====================================================
+// COMMANDS FOR EXAM
+// =====================================================
+
+/*
+
+=====================================================
+1. START HADOOP
+=====================================================
+
+start-dfs.sh
+
+start-yarn.sh
+
+jps
+
+
+=====================================================
+2. CREATE INPUT DIRECTORY
+=====================================================
+
+hdfs dfs -mkdir /input
+
+
+=====================================================
+3. PUT FILE INTO HDFS
+=====================================================
+
+hdfs dfs -put input.txt /input
+
+
+=====================================================
+4. CHECK FILE
+=====================================================
+
+hdfs dfs -cat /input/input.txt
+
+
+=====================================================
+5. COMPILE JAVA PROGRAM
+=====================================================
+
+javac -classpath $(hadoop classpath) -d . UniversalMapReduce.java
+
+javac --release 11 -classpath $(hadoop classpath) -d . UniversalMapReduce.java
+
+
+=====================================================
+6. CREATE JAR FILE
+=====================================================
+
+jar -cvf universal.jar *.class
+
+
+=====================================================
+7. DELETE OLD OUTPUT
+=====================================================
+
+hdfs dfs -rm -r /output
+
+
+=====================================================
+8. RUN PROGRAM
+=====================================================
+
+hadoop jar universal.jar UniversalMapReduce /input /output
+
+
+=====================================================
+9. VIEW OUTPUT
+=====================================================
+
+hdfs dfs -cat /output/part-r-00000
+
+
+=====================================================
+10. DOWNLOAD OUTPUT
+=====================================================
+
+hdfs dfs -get /output
+
+
+=====================================================
+11. STOP HADOOP
+=====================================================
+
+stop-dfs.sh
+
+stop-yarn.sh
+
+
+=====================================================
+IMPORTANT ERRORS
+=====================================================
+
+ERROR:
+Output directory already exists
+
+SOLUTION:
+hdfs dfs -rm -r /output
+
+
+ERROR:
+ClassNotFoundException
+
+SOLUTION:
+Check class name and jar file
+
+
+ERROR:
+Permission denied
+
+SOLUTION:
+chmod 777 filename
+
+
+=====================================================
+VERY IMPORTANT EXAM TIP
+=====================================================
+
+ONLY CHANGE:
+1. Mapper logic
+2. Reducer logic
+
+Driver code remains SAME in most programs.
+
+=====================================================
+
+*/
